@@ -13,6 +13,19 @@ interface Question {
   nextQuestion?: number | 'end' | 'disclaimer';
 }
 
+// sendAnswer関数を追加
+async function sendAnswer(currentQuestionId: number, optionIndex: number) {
+  try {
+    await fetch('http://localhost:5000/submit_answer', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ question_id: currentQuestionId, answer_index: optionIndex }),
+    });
+  } catch (error) {
+    console.error('Failed to send answer:', error);
+  }
+}
+
 // 10代向けの質問
 const teenQuestions: Question[] = [
   {
